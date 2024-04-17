@@ -12,7 +12,6 @@
     {
       "institution": "The University of Chicago",
       "location": "Chicago, IL",
-      "url": "",
       "area": "Cosmic Reionization",
       "studyType": "Ph.D. Astronomy and Astrophysics",
       "startDate": "2020-",
@@ -21,23 +20,12 @@
     {
       "institution": "The University of Chicago",
       "location": "Chicago, IL",
-      "url": "",
       "studyType": "B.A. Physics with Specialization in Astrophysics, B.S. Mathematics",
       "startDate": "2016",
       "endDate": "2020"
     }
   ],
   "skills": [
-    {
-      "name": "Programming languages",
-      "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "Python",
-        "C++",
-        "OpenMP/MPI",
-        "Mathematica"
-      ]
-    },
     {
       "name": "",
       "icon": "",
@@ -46,6 +34,16 @@
         "Parallel Computing",
         "Machine Learning",
         "Numerical Methods"
+      ]
+    },
+    {
+      "name": "Programming languages",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": [
+        "Python",
+        "C++",
+        "OpenMP/MPI",
+        "Mathematica"
       ]
     }
   ],
