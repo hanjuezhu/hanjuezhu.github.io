@@ -5,13 +5,7 @@
     "email": "hanjuezhu@uchicago.edu",
     "url": "https://hanjuezhu.github.io/",
     "summary": "I am a theoretical and computational astrophysicist. I specialize in using different tools  (numerical simulations, machine learning, observations, and analytical calculations) to study the universe, particularly the intergalactic and interstellar medium. My PhD thesis focuses on studying cosmic reionization using cosmological simulations.",
-    "location": {
-      "address": "2712 Broadway St",
-      "postalCode": "CA 94115",
-      "city": "San Francisco",
-      "countryCode": "US",
-      "region": "California"
-    },
+  },
 
   "education": [
     {
@@ -53,7 +47,7 @@
       ]
     }
   ],
-  
+
   "awards": [
     {
       "title": "Nobel Prize in Physics",
