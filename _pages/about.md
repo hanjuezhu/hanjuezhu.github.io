@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: PhD candidate @ UChicago Astronomy & Astrophysics.
+subtitle: I study galaxies near and far, but not in between.
 
 profile:
   align: right
