@@ -21,3 +21,5 @@ I am a PhD candidate in the Department of Astronomy & Astrophysics at the Univer
 A major theme of my research is cosmic reionization and I study the Epoch of Reionization using numerical simulations. My PhD advisor is Prof. [Nick Gnedin](https://astro.uchicago.edu/~gnedin/) (who, according to himself, is also a movie director). 
 
 When I’m not doing research in my office, you can find me in classrooms or outdoors. There is also a non-negligible probability that you see me up in Madison, WI, studying cosmic rays with Prof. Ellen Zweibel.
+
+** For UChicago undergrads: ** I'm happy to discuss research opportunities. Feel free to send me an email with your research interests. If you are interested in (developing) numerical simulations, learning C++ and taking classes for CS majors are useful.I also strongly advocate for establishing a solid foundation in physics.
