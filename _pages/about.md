@@ -22,4 +22,4 @@ A major theme of my research is cosmic reionization and I study the Epoch of Rei
 
 When I’m not doing research in my office, you can find me in classrooms or outdoors. There is also a non-negligible probability that you see me up in Madison, WI, studying cosmic rays with Prof. Ellen Zweibel.
 
-** For UChicago undergrads: ** I'm happy to discuss research opportunities. Feel free to send me an email with your research interests. If you are interested in (developing) numerical simulations, learning C++ and taking classes for CS majors are useful.I also strongly advocate for establishing a solid foundation in physics.
+**For UChicago undergrads:** I'm happy to discuss research opportunities. Feel free to send me an email with your research interests. If you are interested in (developing) numerical simulations, learning C++ and taking classes for CS majors are useful.I also strongly advocate for establishing a solid foundation in physics.
