@@ -16,7 +16,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false # includes social icons at the bottom of the page
 ---
 <br />
-I am a PhD candidate in the Department of Astronomy & Astrophysics at the University of Chicago. I enjoy using different tools  (numerical simulations, machine learning, observations and analytical calculations) to study the universe. **I am currently visiting UC Santa Barbara as a KITP graduate fellow (Fall 2024).**
+I am a PhD candidate in the Department of Astronomy & Astrophysics at the University of Chicago. I enjoy using different tools  (numerical simulations, machine learning, observations and analytical calculations) to study the universe.
 
 A major theme of my research is cosmic reionization and I study the Epoch of Reionization using numerical simulations. My PhD advisor is Prof. [Nick Gnedin](https://astro.uchicago.edu/~gnedin/) (who, according to himself, is also a movie director). 
 
