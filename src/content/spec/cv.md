@@ -1,6 +1,7 @@
 ---
 title: "Curriculum Vitae"
 ---
+<div style="margin-bottom: -30px;">Updated 2025/04/09</div>
 
 ## Education
 
@@ -8,7 +9,8 @@ title: "Curriculum Vitae"
 - **Ph.D. Astronomy & Astrophysics** *(expected 2026)*  
   *Research Focus: Theoretical and Computational Cosmology, High Energy Astrophysics*
 
-- **B.A. Physics with Honors**, **B.S. Mathematics**, 2020  
+- **B.A. Physics with Specialization in Astrophysics with Honors**, 2020
+- **B.S. Mathematics**, 2020  
 
 ## Research Experience
 
@@ -91,7 +93,7 @@ Merit scholarship awarded for outstanding academic achievement, leadership, and 
 **BCCP Workshop on Reionization and Cosmic Dawn**, Berkeley, CA  
 *Conference Talk, 03/2022*
 
-**Structure Formation Seminar**, Shanghai Jiao Tong University  
+**Structure Formation Group Seminar**, Shanghai Jiao Tong University  
 *Talk, 12/2019*
 
 **Midstates Undergraduate Research Symposium**, Chicago, IL  

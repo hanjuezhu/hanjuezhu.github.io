@@ -20,7 +20,8 @@ export const userConfig: Partial<UserConfig> = {
         name: 'CV',
         href: '/cv',
       },
-    ],},
+      ],
+    socialLinks: []},
   
   appearance: {
       theme: 'system',
