@@ -7,7 +7,7 @@ const { translate: t } = Astro.locals
 
 const aboutPost = await getEntry('spec', 'about')
 if (!aboutPost) {
-  throw new Error('No about post found')
+  throw new Error('No about found')
 }
 const { Content } = await render(aboutPost)
 ---

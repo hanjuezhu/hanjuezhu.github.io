@@ -126,14 +126,10 @@ Merit scholarship awarded for outstanding academic achievement, leadership, and 
 
 ## Additional Professional Training
 
-**International Summer School on the Interstellar Medium of Galaxies**  
-07/2021
+**International Summer School on the Interstellar Medium of Galaxies**, 07/2021
 
-**Code/Astro (software engineering workshop for Astronomy)**  
-07/2021
+**Code/Astro (software engineering workshop for Astronomy)**, 07/2021
 
-**The São Paulo School of Advanced Science on First Light**, IAG/University of São Paulo
-08/2019
+**The São Paulo School of Advanced Science on First Light**, IAG/University of São Paulo, 08/2019
 
-**Blue Waters Petascale Institute**, National Center for Supercomputing Applications 
-05/2018
+**Blue Waters Petascale Institute**, National Center for Supercomputing Applications, 05/2018
