@@ -6,14 +6,21 @@ const { title, subtitle } = themeConfig.site
 
 <hgroup
   class="cursor-pointer duration-800 ease-in-out 
-         flex flex-col items-center text-center gap-2.5
-         lg:items-start lg:text-left lg:border-l-2 lg:border-primary-solid lg:pl-2.5"
+         flex flex-col items-center text-center gap-2.5"
+  lg="items-start text-left"
 >
-  <a
-    class="not-underline-hover duration-800 ease-in-out"
-    href="/"
-  >
-    <h3 class="text-5 font-extrabold font-header m-0">{subtitle}</h3>
-    <h1 class="text-8 font-extrabold font-header m-0">{title}</h1>
-  </a>
+  <div class="relative w-full lg:pl-2.5">
+    <a
+      class="not-underline-hover duration-800 ease-in-out block w-full"
+      hover:lg="bg-primary color-background"
+      lg="mt-0 hover:"
+      href="/"
+    >
+      <div class="lg:border-l-2 lg:border-primary-solid lg:pl-2.5">
+        <h3 class="text-5 font-extrabold font-header m-0">{subtitle}</h3>
+        <h1 class="text-8 font-extrabold font-header m-0">{title}</h1>
+      </div>
+    </a>
+  </div>
 </hgroup>
+ 
