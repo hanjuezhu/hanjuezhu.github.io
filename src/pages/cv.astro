@@ -1,0 +1,16 @@
+---
+import { getEntry, render } from 'astro:content'
+import LayoutDefault from '~/layouts/LayoutDefault.astro'
+
+const cvEntry = await getEntry('spec', 'cv')
+if (!cvEntry) {
+  throw new Error('No CV entry found')
+}
+const { Content } = await render(cvEntry)
+---
+
+<LayoutDefault>
+  <article class="prose max-w-3xl mx-auto">
+    <Content />
+  </article>
+</LayoutDefault>

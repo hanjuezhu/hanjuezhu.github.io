@@ -4,6 +4,7 @@ import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import { formatDate } from '~/utils'
 
 const { translate: t } = Astro.locals
+
 const aboutPost = await getEntry('spec', 'about')
 if (!aboutPost) {
   throw new Error('No about post found')
@@ -16,10 +17,6 @@ const { Content } = await render(aboutPost)
     <h1 class="post-title">
       <a class="not-prose">{aboutPost.data.title}</a>
     </h1>
-    <div class="text-3.5">
-      <span>{t('posted_at')}</span>
-      <time>{formatDate(aboutPost.data.pubDate)}</time>
-    </div>
   </header>
   <article class="prose">
     <Content />
