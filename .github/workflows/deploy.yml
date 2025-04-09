@@ -23,7 +23,7 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v3
         with:
-          package-manager: pnpm@latest --no-frozen-lockfile
+          package-manager: pnpm --no-frozen-lockfile
   deploy:
     needs: build
     runs-on: ubuntu-latest
