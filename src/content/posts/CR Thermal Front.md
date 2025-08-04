@@ -8,23 +8,41 @@ draft: false
 pin: true
 ---
 
-[*The code used to solve the equations and generate plots is available here.*](https://github.com/hanjuezhu/cr-cgm-fronts)
+[*The code used to solve the equations and generate plots is available here.*](https://github.com/hanjuezhu/cr_thermal_front)
 
-In [*this paper*](https://arxiv.org/abs/2410.17252), we model the transition layers between warm ($10^4$ K) and hot ($10^6$ K) phases of the circumgalactic medium (CGM), focusing on the role of cosmic ray (CR) heating in shaping their thermal and ionization structure. Building on the CR bottleneck picture, we solve 1D steady-state front models that self-consistently include CR heating, radiative cooling, thermal conduction, and gas flow.
+In [*this paper*](https://arxiv.org/abs/2410.17252), we model the transition layers between warm ($10^4$ K) and hot ($10^6$ K) phases of the circumgalactic medium (CGM), focusing on the role of cosmic ray (CR) heating in shaping their thermal and ionization structure. Building on the CR bottleneck picture, we solve one-dimensional steady-state front models that self-consistently include CR heating, radiative cooling, thermal conduction, and gas flow.
 
-The key result is that CR heating strongly influences the width and structure of these transition layers. In particular, we find that:
+### The Role of Cosmic Ray Bottlenecks
 
-- When CRs dominate the energy balance near the cloud edge, thermal conduction is required to offset the excess heat and maintain a steady-state front.  
-- The resulting fronts are significantly broader than classical evaporative fronts, with more extended temperature gradients and enhanced column densities of intermediate ions like O VI and N V.  
-- Static fronts (with zero gas velocity) and evaporative fronts (flow from warm to hot) show qualitatively different internal structure, particularly in the interplay between conduction and enthalpy flux.
+A central feature of our model is the cosmic ray bottleneck effect, a nonlinear transport phenomenon that occurs when the CR pressure gradient and gas density gradient point in opposite directions along the magnetic field. In such regions, the streaming instability that normally scatters CRs breaks down, allowing the CRs to decouple from the thermal gas. The CR pressure flattens, and CRs effectively accumulate behind the dense cloud. This creates a bottleneck.
 
-We calculate the column densities and diagnostic line ratios (Si IV/C IV, C IV/O VI, N V/O VI) across these models and compare with observations from Wakker et al. (2012). The results show that:
+This leads to a steepened upstream CR pressure gradient and a surge of localized CR heating concentrated near the cloud boundary. Originally proposed by Skilling (1971) and numerically demonstrated by Wiener et al. (2017), this bottleneck mechanism allows CRs to deposit their energy efficiently at interfaces between dense and diffuse gas, which are exactly the type of transition layers we study.
 
-- Most models lie outside the observed range in the Si IV/C IV vs. C IV/O VI parameter space.  
-- High magnetic field models reproduce the observed Si IV/C IV ratios but overestimate the C IV/O VI ratios.  
-- Models with lower magnetic fields underpredict Si IV/C IV but agree better with C IV/O VI and N V/O VI ratios.  
-- A subset of intermediate-field models successfully match both line ratio pairs, although we make no claim for their uniqueness.
+In our front models, we assume that CRs stream at the Alfvén speed $v_A$, transferring energy to the gas via wave damping. We show that this heating, amplified by bottleneck effects, is strong enough to reshape the thermal structure of the front. However, it cannot act alone. Thermal conduction is required to carry away the excess energy and prevent runaway heating. The result is a broad, steady-state front where energy fluxes - including CR heating, conduction, radiative cooling, and enthalpy flux - self-regulate.
 
-This work suggests that CR heating can plausibly explain some observed CGM ionization signatures, particularly in the warm-hot regime, but may require additional processes (e.g., photoionization, turbulent mixing) to reproduce the full suite of observed line ratios. It also highlights the importance of magnetic field strength and CR pressure in regulating thermal structure.
+### Key Results
 
-More broadly, these results imply that the thermal structure of the CGM is not solely determined by classical cooling or conduction physics. Instead, CR pressure gradients and associated heating can reshape the interface between gas phases, leaving observable imprints on absorption line spectra. 
+We find that CR heating strongly influences the width and structure of the transition layers. In particular:
+
+- When CRs dominate the energy balance near the cloud edge, thermal conduction is required to offset the excess heat and maintain a steady-state front.
+- The resulting fronts are significantly broader than classical evaporative fronts, with more extended temperature gradients and enhanced column densities of intermediate ions like O VI and N V.
+- Static fronts (with zero gas velocity) and evaporative fronts (flow from warm to hot) show qualitatively different internal structure, especially in how conduction and enthalpy flux compensate for CR heating.
+
+We also study the dependence on physical parameters such as the magnetic field strength and the CR-to-gas pressure ratio $\alpha$. Stronger magnetic fields, which increase $v_A$, intensify CR heating and modify the spatial scale over which different heating and cooling mechanisms dominate. The bottleneck effect becomes especially important in high-$\alpha$ models, where CR pressure at the cloud edge is large and needs to be redistributed.
+
+### Observational Predictions
+
+We compute column densities and line ratios (Si IV/C IV, C IV/O VI, N V/O VI) across our front models and compare them with Galactic CGM data from Wakker et al. (2012). The results show:
+
+- Most models lie outside the observed range in the Si IV/C IV vs. C IV/O VI parameter space.
+- High magnetic field models reproduce the observed Si IV/C IV ratios but overpredict C IV/O VI.
+- Lower field models underpredict Si IV/C IV but agree better with C IV/O VI and N V/O VI.
+- A subset of intermediate-field models, such as those with $B = 20~\mu$G and $\alpha = 3$, successfully match both line ratio pairs, although we make no claim for their uniqueness.
+
+These discrepancies suggest that CR heating can plausibly explain some observed ionization signatures, especially for transition-temperature ions. However, additional processes such as photoionization or turbulent mixing are likely required to match the full suite of data.
+
+### Broader Implications
+
+Our results demonstrate that the thermal structure of the CGM is not governed solely by classical processes like radiative cooling or conduction. Instead, cosmic ray pressure gradients, particularly in bottleneck regions, can reshape the interface between gas phases. These modified fronts imprint distinctive column densities and ion ratios on the CGM, providing potential observational signatures of CR-regulated dynamics.
+
+This work refines the bottleneck scenario proposed by Wiener et al. (2017) by incorporating thermal conduction and enthalpy flux, revealing the full interplay of heat and momentum transfer in CR-dominated transition layers. It opens the door to further work on CR feedback in multiphase halos, including the role of turbulence, magnetic topology, and front stability.
