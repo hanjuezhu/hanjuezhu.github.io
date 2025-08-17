@@ -1,0 +1,24 @@
+---
+import { getEntry, render } from 'astro:content'
+import LayoutDefault from '~/layouts/LayoutDefault.astro'
+import { formatDate } from '~/utils'
+
+const { translate: t } = Astro.locals
+
+const aboutPost = await getEntry('spec', 'intro_to_research')
+if (!aboutPost) {
+  throw new Error('No intro_to_research found')
+}
+const { Content } = await render(aboutPost)
+---
+
+<LayoutDefault>
+  <header flex="~ col gap-2">
+    <h1 class="post-title">
+      <a class="not-prose">{aboutPost.data.title}</a>
+    </h1>
+  </header>
+  <article class="prose">
+    <Content />
+  </article>
+</LayoutDefault>
