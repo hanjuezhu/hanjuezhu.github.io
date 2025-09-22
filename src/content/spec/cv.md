@@ -40,14 +40,14 @@ title: "Curriculum Vitae"
 ## Honors & Awards
 
 **Jane Street Graduate Research Fellowship Finalist**  
-Awarded to exceptional doctoral students in computer science, mathematics, physics, or statistics. 
+Awarded to exceptional doctoral students in computer science, mathematics, physics, or statistics.<br>
 *2025*
 
-**Fermilab URA Visiting Scholars Program Award** 
+**Fermilab URA Visiting Scholars Program Award**<br>
 *2024*
 
 **Dr. Pliny A. and Margaret H. Price Prize**, Ohio State University, CCAPP  
-Recognizes research excellence and exceptional promise in Center for Cosmology and AstroParticle Physics (CCAPP)-related fields.
+Recognizes research excellence and exceptional promise in Center for Cosmology and AstroParticle Physics (CCAPP)-related fields.<br>
 *2024*
 
 **KITP Graduate Fellowship**, Kavli Institute for Theoretical Physics  
@@ -63,8 +63,6 @@ Among 19 students selected nationwide. Included a stipend, a two-week Petascale 
 
 **Heising-Simons Award**, UChicago Department of Physics   
 *2018*
-
-
 
 **Dean's Scholarship**, **University Scholarship**, University of Chicago  
 Merit-based scholarship for exemplary incoming undergraduate students.  

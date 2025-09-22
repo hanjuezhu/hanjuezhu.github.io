@@ -15,10 +15,8 @@ pubDate: 2024-12-06
 **Job**: PhD candidate in Astronomy & Astrophysics at the University of Chicago <br>
 **Hobby**: Theoretical and computational astrophysics <br>
 
-I explore the universe using whatever tools get the job done - numerical simulations, analytical theory, machine learning, and the occasional deep-dive into observational data.
+I am a computational astrophysicist by training. I develop new theories and algorithms to explore the universe. My PhD thesis, advised by Prof. Nick Gnedin (who likes to remind people he’s also a movie director), focuses on cosmic reionization. I also spend time in Madison, WI, working with Prof. Ellen Zweibel on cosmic rays.
 
-My PhD thesis, advised by Prof. Nick Gnedin (who, according to himself, is also a movie director), focuses on cosmic reionization. I also spend time up in Madison, WI, working with Prof. Ellen Zweibel studying cosmic rays.
-
-When I’m not doing science, I’m usually busy building stuff or playing Go. You can find me somewhere between Chicago and Madison (on a Van Galder bus).
+When I’m not doing science, I’m usually building things, playing chess or Go, or keeping up my interest in competitive programming. You can find me somewhere between Chicago and Madison (on a Van Galder bus).
 
 <u>For UChicago undergrads interested in theoretical and computational astrophysics:</u> Our group is always excited to welcome undergrads who want to grow as scientists and get involved in **modeling structure formation with cosmological simulations**. We are typically a good fit for students who enjoy using computing power to tackle physics problems that are too complex for purely analytical solutions. We use simulations as a tool for theoretical discovery. If you're interested, feel free to reach out and attend our group meeting (Fridays at 3pm in ERC 419). If you're curious about what we do or how to get started, take a look at [**this short guide**](/intro_to_research) I compiled from email responses to prospective undergrad researchers.
