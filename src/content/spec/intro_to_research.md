@@ -8,7 +8,7 @@ A short reading guide compiled from my email responses to undergrads and incomin
 - [Gnedin & Madau (2022)](https://link.springer.com/article/10.1007/s41115-022-00015-5):  
   A short review that surveys the key physics and modeling approaches used to study cosmic reionization.
 - [Saas-Fee Notes (Gnedin 2014)](https://arxiv.org/abs/1412.5184):  
-  Lecture notes for anyone interested in starting research in reionization. A guided tour through reionization, galaxy formation, and the physics of cosmic gas - from the IGM to star-forming regions.
+  Lecture notes for anyone interested in starting research in reionization. A guided tour through reionization, galaxy formation, and the physics of cosmic gas — from the IGM to star-forming regions.
 - [Computational Hydrodynamics for Astrophysics](https://zingale.github.io/cca-summer-school/intro.html):  
   A hands-on introduction to hydrodynamics solvers by Michael Zingale.
 
