@@ -17,7 +17,7 @@ $$
 \langle K \rangle \propto \nu^2 - 1.
 $$
 
-In underdense regions, the analytical model breaks down. The barrier-crossing formalism treats a remaining neutral island at the bottom of a void as an isodensity contour of the field smoothed on scale $R$. In reality, voids are typically ionized by a front that sweeps across the region along directions set by the distribution of ionizing sources and the large-scale radiation field, largely independent of the detailed density structure within the void. Consequently, front geometry there is not tied to isodensity surfaces, and the GRF prediction for $\langle K \rangle$  fails.
+In underdense regions, the analytical model breaks down. The barrier-crossing formalism treats a remaining neutral island at the bottom of a void as an isodensity contour of the field smoothed on scale $R$. In reality, voids are typically ionized by a front that sweeps across the region along directions set by the distribution of ionizing sources and the large-scale radiation field, largely independent of the detailed density structure within the void. Consequently, front geometry there is not tied to isodensity surfaces, and the GRF prediction for $\langle K \rangle$ fails.
 
 The velocity distribution is also compared to predictions from the same barrier-crossing formalism. While the model reproduces the overall shape of the distribution at intermediate and high velocities, it fails to capture the low-velocity tail observed in simulations. This discrepancy is due to non-Gaussian features in the evolved density field, which are not included in the Gaussian-based model.
 
