@@ -15,7 +15,9 @@ pubDate: 2024-12-06
 **Job**: PhD candidate in Astronomy & Astrophysics at the University of Chicago <br>
 **Hobby**: Theoretical and computational astrophysics <br>
 
-I am a computational astrophysicist by training. I develop new theories and algorithms to explore the universe. My PhD thesis, advised by Prof. Nick Gnedin (who likes to remind people he’s also a movie director), focuses on cosmic reionization. I also spend time in Madison, WI, working with Prof. Ellen Zweibel on cosmic rays.
+I am interested in the fundamental physical processes that govern structure formation and evolution in the universe, especially before the completion of cosmic reionization. My goal is to develop theoretical models grounded in first principles and represent them accurately and efficiently in numerical simulations. As a computational astrophysicist, I have a strong interest in developing and introducing state-of-the-art numerical tools to advance theoretical astrophysics. 
+
+My PhD thesis, advised by Prof. Nick Gnedin (who likes to remind people he’s also a movie director), focuses on cosmic reionization. I also spend time in Madison, WI, working with Prof. Ellen Zweibel on cosmic rays.
 
 When I’m not doing science, I’m usually building things, playing chess or Go, or keeping up my interest in competitive programming. You can find me somewhere between Chicago and Madison (on a Van Galder bus).
 
@@ -70,8 +72,7 @@ When I’m not doing science, I’m usually building things, playing chess or Go
 </div>
 
 <div class="research-content">
-  I work with undergraduates both at <strong>UChicago</strong> (focusing on cosmic reionization and structure formation)
-  and <strong>UW–Madison</strong> (focusing on plasma astrophysics and cosmic rays). I have projects that involve running simulations, developing machine learning models, and building reduced analytical models that capture the essential physics of complex astrophysical systems. For simulation work, being able to code in C++ or Fortran is required, but strong motivation and the ability to learn these languages along the way are perfectly fine. For machine learning or analytical projects, a solid background in applied mathematics and physics is important — you’ll likely enjoy these projects if you like deriving equations and understanding algorithms. Overall, my mentorship style and research are a good fit for mathematically inclined students who want to understand both the tools and the physics.
+  I work with undergraduates both at <strong>UChicago</strong> and <strong>UW–Madison</strong>. I have projects that involve running simulations, developing machine learning models, and building reduced analytical models that capture the essential physics of complex astrophysical systems. For simulation work, being able to code in C++ or Fortran is required, but strong motivation and the ability to learn these languages along the way are perfectly fine. For machine learning or analytical projects, a solid background in applied mathematics and physics is important — you’ll likely enjoy these projects if you like deriving equations and understanding algorithms. Overall, my mentorship style and research are a good fit for mathematically inclined students who want to understand both the tools and the physics.
 
   If you’re interested in collaborating, feel free to reach out to me or to my advisor, mentioning your interest in working with me. If you're curious about my reionization work or how to get started, take a look at [**this short guide**](/intro_to_research) I compiled from email responses to prospective undergrad researchers.
 </div>
