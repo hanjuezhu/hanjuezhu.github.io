@@ -10,13 +10,14 @@ pin: true
 
 In [*this paper*](https://arxiv.org/abs/2504.20046), we study the geometry and dynamics of ionization fronts during reionization using the CROC simulations. By constructing reionization timing maps, we extract front velocities and curvatures across the cosmic volume.
 
+
 I find it most interesting that the curvature statistics in the simulations are well described by analytical expressions derived from a barrier-crossing model applied to a Gaussian random field (GRF). In particular, the mean Gaussian curvature correlates with the normalized density contrast $\nu = \delta / \sigma_0$, and agrees with the GRF prediction in overdense regions:
 
 $$
 \langle K \rangle \propto \nu^2 - 1.
 $$
 
-In underdense regions, the analytical model breaks down due to its assumption that ionization fronts follow isodensity contours.
+In underdense regions, the analytical model breaks down. The barrier-crossing formalism treats a remaining neutral island at the bottom of a void as an isodensity contour of the field smoothed on scale $R$. In reality, voids are typically ionized by a front that sweeps across the region along directions set by the distribution of ionizing sources and the large-scale radiation field, largely independent of the detailed density structure within the void. Consequently, front geometry there is not tied to isodensity surfaces, and the GRF prediction for $\langle K \rangle$  fails.
 
 The velocity distribution is also compared to predictions from the same barrier-crossing formalism. While the model reproduces the overall shape of the distribution at intermediate and high velocities, it fails to capture the low-velocity tail observed in simulations. This discrepancy is due to non-Gaussian features in the evolved density field, which are not included in the Gaussian-based model.
 
