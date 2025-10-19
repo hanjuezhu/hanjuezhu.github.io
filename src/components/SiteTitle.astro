@@ -1,5 +1,6 @@
 ---
 import { themeConfig } from '~/.config'
+import LitClock from './LitClock.astro'
 
 const { title, subtitle } = themeConfig.site
 ---
@@ -10,11 +11,10 @@ const { title, subtitle } = themeConfig.site
   lg="items-start text-left"
 >
   <div class="relative w-full lg:pl-2.5">
-    <a
-      class="not-underline-hover duration-800 ease-in-out block w-full"
-      hover:lg="bg-primary color-background"
-      lg="mt-0 hover:"
-      href="/"
+    <a class="not-underline-hover duration-800 ease-in-out block w-full"
+       hover:lg="bg-primary color-background"
+       lg="mt-0 hover:"
+       href="/"
     >
       <div class="lg:border-l-2 lg:border-primary-solid lg:pl-2.5">
         <h3 class="text-5 font-extrabold font-header m-0">{subtitle}</h3>
@@ -23,4 +23,8 @@ const { title, subtitle } = themeConfig.site
     </a>
   </div>
 </hgroup>
- 
+
+<div class="mt-6 text-sm italic text-gray-500 lg:text-left lg:pl-0 text-center">
+  <LitClock />
+</div>
+
