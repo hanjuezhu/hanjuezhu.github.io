@@ -54,6 +54,18 @@
     }
   }
 
-  loadQuotes();
-  setInterval(loadQuotes, 60000);
+  function startQuoteClock() {
+    loadQuotes(); // run immediately
+
+    const now = new Date();
+    const msUntilNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+
+    // Sync with next exact minute
+    setTimeout(() => {
+      loadQuotes(); // update at the start of next minute
+      setInterval(loadQuotes, 60000); // then every 60s
+    }, msUntilNextMinute);
+  }
+
+  startQuoteClock();
 </script>
