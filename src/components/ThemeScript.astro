@@ -1,23 +1,26 @@
 ---
-import { themeConfig } from "~/.config";
-const defaultTheme = themeConfig.appearance.theme; // "dark" | "light" | "system"
+
 ---
 
-<!-- 1️⃣ Apply theme before page renders -->
+<!-- 1️⃣ Apply theme BEFORE page renders -->
 <script is:inline>
   (function () {
+    // Default theme from Astro config (hardcode or retrieve global theme if needed)
+    const defaultTheme = document.documentElement.getAttribute('data-theme-default') || 'system';
     const saved = localStorage.getItem('theme');
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
     const finalTheme =
       saved ||
       (defaultTheme === 'system'
         ? (systemDark ? 'dark' : 'light')
         : defaultTheme);
+
     document.documentElement.classList.toggle('dark', finalTheme === 'dark');
   })();
 </script>
 
-<!-- 2️⃣ Theme toggle logic (instant, no flicker, preserve background) -->
+<!-- 2️⃣ Handle theme toggle -->
 <script>
   function disableTransitionsTemporarily() {
     document.documentElement.classList.add('theme-transition');
@@ -26,15 +29,16 @@ const defaultTheme = themeConfig.appearance.theme; // "dark" | "light" | "system
     });
   }
 
-  function applyTheme(mode /** @type {string} */) {
+  function applyTheme(mode: string) {
     disableTransitionsTemporarily();
     document.documentElement.classList.toggle('dark', mode === 'dark');
     localStorage.setItem('theme', mode);
   }
 
   function bindToggle() {
-    const btn = document.getElementById('theme-toggle');
+    const btn = document.getElementById('theme-toggle') as HTMLElement | null;
     if (!btn || btn.dataset.bound) return;
+
     btn.dataset.bound = 'true';
     btn.addEventListener('click', () => {
       const isDark = document.documentElement.classList.contains('dark');
@@ -48,14 +52,13 @@ const defaultTheme = themeConfig.appearance.theme; // "dark" | "light" | "system
 </script>
 
 <style>
-  /* ✅ Disable only color+background-color transitions during theme toggle */
+  /* Prevent color transitions only (preserve layout & background) */
   html.theme-transition * {
     transition-property: color, background-color, border-color, text-shadow !important;
     transition-duration: 0ms !important;
     animation: none !important;
   }
 
-  /* ✅ Keep layout and background-image intact */
   html.theme-transition {
     transition-property: color, background-color !important;
     transition-duration: 0ms !important;
