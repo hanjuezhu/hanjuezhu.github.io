@@ -9,7 +9,7 @@ interface Props {
 const { post } = Astro.props
 ---
 
-<article class="prose">
+<article class="prose transition-colors duration-200 ease-in-out">
   <PostMeta post={post} />
   <slot />
 </article>

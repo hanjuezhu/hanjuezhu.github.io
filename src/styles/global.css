@@ -20,3 +20,16 @@ html {
   --at-apply: 'ease-in-out duration-300ms';
   --at-apply: 'hover:(c-background bg-primary decoration-primary)';
 }
+
+/* Disable only color transitions on theme toggle, keep layout & background intact */
+html.theme-transition * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Allow background-image to always render */
+html.theme-transition {
+  transition: background 0ms !important;
+  background-image: inherit !important; /* explicitly preserve background */
+}
+

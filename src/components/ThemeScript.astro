@@ -1,35 +1,65 @@
 ---
 import { themeConfig } from "~/.config";
-
-const theme = themeConfig.appearance.theme;
+const defaultTheme = themeConfig.appearance.theme; // "dark" | "light" | "system"
 ---
 
-<script is:inline define:vars={{ theme }}>
-  function updateTheme(theme) {
-    // Check for user theme preference
-    const storedTheme = localStorage.getItem('theme');
-    
-    if (storedTheme) {
-      document.documentElement.classList.toggle('dark', storedTheme === 'dark');
-    } else if (theme === "system") {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      document.documentElement.classList.toggle("dark", prefersDark);
-    } else {
-      // Use the theme defined in the config
-      document.documentElement.classList.toggle("dark", theme === "dark");
-    }
+<!-- 1️⃣ Apply theme before page renders -->
+<script is:inline>
+  (function () {
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const finalTheme =
+      saved ||
+      (defaultTheme === 'system'
+        ? (systemDark ? 'dark' : 'light')
+        : defaultTheme);
+    document.documentElement.classList.toggle('dark', finalTheme === 'dark');
+  })();
+</script>
+
+<!-- 2️⃣ Theme toggle logic (instant, no flicker, preserve background) -->
+<script>
+  function disableTransitionsTemporarily() {
+    document.documentElement.classList.add('theme-transition');
+    requestAnimationFrame(() => {
+      document.documentElement.classList.remove('theme-transition');
+    });
   }
 
-  // Initialize theme
-  updateTheme(theme);
+  function applyTheme(mode /** @type {string} */) {
+    disableTransitionsTemporarily();
+    document.documentElement.classList.toggle('dark', mode === 'dark');
+    localStorage.setItem('theme', mode);
+  }
 
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
-      if (theme === "system" && !localStorage.getItem('theme')) {
-        document.documentElement.classList.toggle("dark", e.matches);
-      }
+  function bindToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn || btn.dataset.bound) return;
+    btn.dataset.bound = 'true';
+    btn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      applyTheme(isDark ? 'light' : 'dark');
     });
+  }
+
+  document.addEventListener('DOMContentLoaded', bindToggle);
+  document.addEventListener('astro:after-swap', bindToggle);
+  document.addEventListener('swup:contentReplaced', bindToggle);
 </script>
+
+<style>
+  /* ✅ Disable only color+background-color transitions during theme toggle */
+  html.theme-transition * {
+    transition-property: color, background-color, border-color, text-shadow !important;
+    transition-duration: 0ms !important;
+    animation: none !important;
+  }
+
+  /* ✅ Keep layout and background-image intact */
+  html.theme-transition {
+    transition-property: color, background-color !important;
+    transition-duration: 0ms !important;
+    animation: none !important;
+  }
+</style>
+
