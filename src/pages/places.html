@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>我的地图点评 | Kyoto Style</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Leaflet -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  /* ========= 整体：京都旅馆氛围 ========= */
+
+  body {
+    margin: 0;
+    font-family: "Hiragino Sans", "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1c1c1c;
+    background: #f7f5f2;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("/bg.jpg") center/cover no-repeat;
+    opacity: 0.24;
+    filter: brightness(0.92) contrast(1.06);
+    z-index: -1;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 390px 1fr;
+    gap: 32px;
+    max-width: 1300px;
+    margin: 40px auto 20px;
+    padding: 0 40px;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+      padding: 0 16px;
+    }
+  }
+
+  /* ========= 顶部右上角 ⋯ 按钮 ========= */
+
+  #edit-toggle {
+    position: fixed;
+    top: 18px;
+    right: 26px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    color: #5c4a33;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.45;
+    transition: opacity .25s ease, transform .25s ease, box-shadow .25s ease;
+    z-index: 9999;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+  }
+
+  #edit-toggle:hover {
+    opacity: 1;
+    transform: scale(1.08) translateY(-1px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+  }
+
+  /* ========= 左侧点评列表 & 详情 ========= */
+
+  .left-panel {
+    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.78);
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.10);
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 26px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: #222;
+  }
+
+  .filter-bar {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    background: #e8dfd3;
+    border: none;
+    border-radius: 999px;
+    margin: 0 6px 4px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .filter-btn.active {
+    background: #cbb89e;
+    color: #2f2f2f;
+    font-weight: 600;
+  }
+
+  #reviews { margin-top: 10px; }
+  #review-detail { margin-top: 10px; }
+
+  .review-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #ffffffee;
+    border-radius: 18px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+    transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+    cursor: pointer;
+  }
+  .review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+  }
+
+  .name {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .category {
+    color: #7b654b;
+    font-size: 12px;
+    margin-bottom: 6px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* 列表里的描述：只显示一行，超出部分省略号 */
+  .desc {
+    font-size: 14px;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 单个删除按钮（仅编辑模式显示） */
+  .delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid #e0d0c0;
+    background: rgba(255,255,255,0.92);
+    font-size: 11px;
+    color: #a35a4a;
+    cursor: pointer;
+  }
+  .delete-btn:hover {
+    background: #f9ece3;
+  }
+
+  /* 详情卡片 & 返回按钮 */
+
+  .detail-card {
+    position: relative;
+    background: #ffffffee;
+    border-radius: 18px;
+    padding: 14px 18px 18px;
+    box-shadow: 0 8px 26px rgba(0,0,0,0.10);
+  }
+
+  .back-btn {
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid #e0d0c0;
+    background: rgba(255,255,255,0.95);
+    font-size: 12px;
+    color: #7b654b;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .back-btn:hover {
+    background: #f9f2ea;
+  }
+
+  .detail-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .detail-category {
+    color: #7b654b;
+    font-size: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .detail-desc {
+    font-size: 14px;
+    color: #444;
+    white-space: pre-line;
+    word-break: break-word; /* 关键：长串文字也会换行 */
+  }
+
+  .detail-desc-edit {
+    width: 100%;
+    min-height: 90px;
+    margin-top: 4px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid #e0d6c7;
+    background: #f9f7f4;
+    font-size: 14px;
+    color: #444;
+    box-sizing: border-box;
+    resize: vertical;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+
+  .detail-delete-btn {
+    margin-top: 14px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid #e0d0c0;
+    background: #fff7f5;
+    font-size: 12px;
+    color: #b45b4c;
+    cursor: pointer;
+  }
+  .detail-delete-btn:hover {
+    background: #fce9e3;
+  }
+
+  /* ========= 右侧地图卡片 ========= */
+
+  .map-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.78);
+    border-radius: 22px;
+    padding: 22px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+
+  /* 搜索条 */
+  #search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    align-items: center;
+  }
+
+  #searchInput {
+    flex: 1;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid #e0d6c7;
+    background: #ffffff;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  #searchBtn {
+    padding: 9px 16px;
+    border-radius: 999px;
+    border: none;
+    background: #7b654b;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  }
+
+  #searchBtn:hover {
+    background: #6a5842;
+  }
+
+  /* 通用主按钮 */
+  .primary-btn {
+    margin-top: 12px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    border: none;
+    background: #7b654b;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  }
+  .primary-btn:hover {
+    background: #6a5842;
+  }
+
+  #map {
+    width: 100%;
+    height: 360px;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+    overflow: hidden;
+  }
+
+  /* ========= 底部编辑区域（默认收起） ========= */
+
+  #editor-shell {
+    max-width: 1300px;
+    margin: 0 auto 40px;
+    padding: 0 40px;
+    box-sizing: border-box;
+
+    transition: max-height .35s ease, opacity .28s ease, transform .35s ease;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(12px);
+    overflow: hidden;
+  }
+
+  #editor-shell.editor-open {
+    max-height: 600px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    #editor-shell {
+      padding: 0 16px 24px;
+    }
+  }
+
+  .editor-card {
+    margin-top: 24px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(246,240,232,0.98));
+    box-shadow: 0 14px 38px rgba(0,0,0,0.14);
+    backdrop-filter: blur(22px) saturate(130%);
+    padding: 18px 22px 20px;
+    position: relative;
+  }
+
+  .editor-header-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
+  .editor-title {
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7b654b;
+  }
+
+  .editor-subtitle {
+    font-size: 12px;
+    color: #7b7568;
+    margin-top: 4px;
+  }
+
+  #editor-close {
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #7b654b;
+    transition: background .2s ease, transform .2s ease;
+  }
+
+  #editor-close:hover {
+    background: rgba(123,101,75,0.08);
+    transform: translateY(-1px);
+  }
+
+  .editor-main {
+    padding-top: 4px;
+  }
+
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #3c3c3c;
+    font-size: 13px;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 9px 11px;
+    margin-top: 4px;
+    border-radius: 10px;
+    border: 1px solid #d7d5d2;
+    background: #f9f7f4;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  textarea { resize: vertical; }
+
+</style>
+</head>
+
+<body>
+
+<!-- 全局右上角 ⋯ 按钮 -->
+<div id="edit-toggle">⋯</div>
+
+<div class="layout">
+
+  <!-- 左侧：点评列表 + 详情 -->
+  <div class="left-panel">
+    <h1>我的点评</h1>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="hotel">酒店</button>
+      <button class="filter-btn" data-filter="restaurant">餐厅</button>
+    </div>
+
+    <div id="reviews"></div>
+    <div id="review-detail" style="display:none"></div>
+  </div>
+
+  <!-- 右侧：地图 + 搜索 -->
+  <div class="map-card">
+    <div id="search-bar">
+      <input id="searchInput" placeholder="搜索地点…" />
+      <button id="searchBtn">搜索</button>
+    </div>
+    <div id="map"></div>
+  </div>
+
+</div>
+
+<!-- 底部：编辑区域（默认收起） -->
+<section id="editor-shell">
+  <div class="editor-card">
+    <div class="editor-header-row">
+      <div>
+        <div class="editor-title">PRIVATE NOTES</div>
+        <div class="editor-subtitle">
+        </div>
+      </div>
+      <div id="editor-close">×</div>
+    </div>
+
+    <div class="editor-main">
+      <label for="nameInput">名称</label>
+      <input id="nameInput" placeholder="">
+
+      <label for="descInput">描述</label>
+      <textarea id="descInput" rows="3" placeholder=""></textarea>
+
+      <label for="categoryInput">分类</label>
+      <select id="categoryInput">
+        <option value="hotel">酒店</option>
+        <option value="restaurant">餐厅</option>
+      </select>
+
+      <button id="addConfirmBtn" type="button" class="primary-btn">
+        确认添加 / 保存当前地点
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ======================
+     数据 & 常量
+  ====================== */
+
+  let markers = JSON.parse(localStorage.getItem("markers") || "[]");
+  let editorUnlocked = false;
+  let currentFilter = "all";
+  let lastSearchLocation = null;
+  let currentEditingIndex = null;  // null = 正在新建；数字 = 在编辑某条点评
+
+  const reviewsListEl  = document.getElementById("reviews");
+  const reviewDetailEl = document.getElementById("review-detail");
+
+  const searchInput  = document.getElementById("searchInput");
+  const searchBtn    = document.getElementById("searchBtn");
+  const nameInput    = document.getElementById("nameInput");
+  const descInput    = document.getElementById("descInput");
+  const categoryInput= document.getElementById("categoryInput");
+  const addConfirmBtn= document.getElementById("addConfirmBtn");
+
+  const editToggle   = document.getElementById("edit-toggle");
+  const editorShell  = document.getElementById("editor-shell");
+  const editorClose  = document.getElementById("editor-close");
+
+  /* ======================
+     公共：视图切换 & 删除
+  ====================== */
+
+  function showListView() {
+    reviewDetailEl.style.display = "none";
+    reviewsListEl.style.display = "block";
+  }
+
+  function removeEntryByIndex(idx) {
+    if (idx < 0 || idx >= markers.length) return;
+    markers.splice(idx, 1);
+    localStorage.setItem("markers", JSON.stringify(markers));
+    currentEditingIndex = null;
+    showListView();
+    renderReviews(currentFilter);
+    renderMap();
+  }
+
+  /* ======================
+     左侧：详情视图
+  ====================== */
+
+    function showDetailView(m) {
+    const idx = markers.indexOf(m);
+
+    reviewsListEl.style.display = "none";
+    reviewDetailEl.style.display = "block";
+    reviewDetailEl.innerHTML = "";
+
+    const card = document.createElement("div");
+    card.className = "detail-card";
+
+    const backBtn = document.createElement("button");
+    backBtn.className = "back-btn";
+    backBtn.textContent = "← 返回";
+    backBtn.onclick = showListView;
+    card.appendChild(backBtn);
+
+    const nameDiv = document.createElement("div");
+    nameDiv.className = "detail-name";
+    nameDiv.textContent = m.name;
+    card.appendChild(nameDiv);
+
+    const catDiv = document.createElement("div");
+    catDiv.className = "detail-category";
+    catDiv.textContent = m.category === "hotel" ? "酒店" : "餐厅";
+    card.appendChild(catDiv);
+
+    // —— 描述部分：编辑模式下用 textarea，否则用普通 div ——
+    if (editorUnlocked && idx !== -1) {
+      const ta = document.createElement("textarea");
+      ta.className = "detail-desc-edit";
+      ta.value = m.desc || "";
+      card.appendChild(ta);
+
+      // 同步到底部 PRIVATE NOTES 的“描述”输入框
+      currentEditingIndex = idx;
+      nameInput.value = m.name || "";
+      descInput.value = m.desc || "";
+      categoryInput.value = m.category || "hotel";
+      lastSearchLocation = (isFinite(m.lat) && isFinite(m.lng))
+        ? { lat: m.lat, lon: m.lng }
+        : null;
+      editorShell.classList.add("editor-open");
+
+      // 在详情里改文字，会实时同步到底部表单
+      ta.addEventListener("input", () => {
+        descInput.value = ta.value;
+      });
+
+    } else {
+      const descDiv = document.createElement("div");
+      descDiv.className = "detail-desc";
+      descDiv.textContent = m.desc || "";
+      card.appendChild(descDiv);
+    }
+
+    reviewDetailEl.appendChild(card);
+
+    // 地图跳转到该店
+    if (!isNaN(m.lat) && !isNaN(m.lng)) {
+      map.flyTo([m.lat, m.lng], 15, { duration: 1.2 });
+    }
+  }
+
+
+  /* ======================
+     左侧：列表渲染
+  ====================== */
+
+  function renderReviews(filter = "all") {
+    const cont = reviewsListEl;
+    cont.innerHTML = "";
+
+    let list = filter === "all" ? markers : markers.filter(m => m.category === filter);
+
+    list.forEach(m => {
+      const card = document.createElement("div");
+      card.className = "review-card";
+      card.dataset.lat = m.lat;
+      card.dataset.lng = m.lng;
+
+      const info = document.createElement("div");
+
+      const nameDiv = document.createElement("div");
+      nameDiv.className = "name";
+      nameDiv.textContent = m.name;
+
+      const catDiv = document.createElement("div");
+      catDiv.className = "category";
+      catDiv.textContent = m.category === "hotel" ? "酒店" : "餐厅";
+
+      const descDiv = document.createElement("div");
+      descDiv.className = "desc";
+      descDiv.textContent = m.desc || "";
+
+      info.appendChild(nameDiv);
+      info.appendChild(catDiv);
+      info.appendChild(descDiv);
+      card.appendChild(info);
+
+      // 点击进入详情视图
+      card.addEventListener("click", () => {
+        const idx = markers.indexOf(m);
+        currentEditingIndex = editorUnlocked ? idx : null;
+        showDetailView(m);
+      });
+
+      if (editorUnlocked) {
+        const delBtn = document.createElement("button");
+        delBtn.className = "delete-btn";
+        delBtn.textContent = "删除";
+        delBtn.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          const idx = markers.indexOf(m);
+          if (confirm("确定删除这条点评吗？")) {
+            removeEntryByIndex(idx);
+          }
+        });
+        card.appendChild(delBtn);
+      }
+
+      cont.appendChild(card);
+    });
+  }
+
+  renderReviews(currentFilter);
+  showListView();
+
+  // 分类筛选
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentFilter = btn.dataset.filter;
+      showListView();
+      renderReviews(currentFilter);
+    };
+  });
+
+  /* ======================
+     地图初始化
+  ====================== */
+
+  const API_KEY = "8969679449d44b44a6a1ec357d242287";
+
+  const map = L.map("map").setView([35.0116, 135.7681], 13); // 京都
+
+  const tileBase =
+    `https://maps.geoapify.com/v1/tile/osm-bright-smooth/{z}/{x}/{y}.png?apiKey=${API_KEY}`;
+  const tileRetina =
+    `https://maps.geoapify.com/v1/tile/osm-bright-smooth/{z}/{x}/{y}@2x.png?apiKey=${API_KEY}`;
+
+  L.tileLayer(L.Browser.retina ? tileRetina : tileBase, {
+    maxZoom: 20,
+    attribution: "© OpenStreetMap contributors, © Geoapify"
+  }).addTo(map);
+
+  const layer = L.layerGroup().addTo(map);
+
+  const pinIcon = L.icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/535/535239.png",
+    iconSize: [30, 30],
+    iconAnchor: [15, 30]
+  });
+
+  function renderMap() {
+    layer.clearLayers();
+    markers.forEach(m => {
+      L.marker([m.lat, m.lng], { icon: pinIcon })
+        .addTo(layer)
+        .bindPopup(`<b>${m.name}</b><br>${m.desc || ""}`);
+    });
+  }
+
+  renderMap();
+
+  /* ======================
+     搜索 & 手动确认添加 / 保存
+  ====================== */
+
+  async function doSearch() {
+    const q = searchInput.value.trim();
+    if (!q) {
+      alert("请输入要搜索的地点");
+      return;
+    }
+
+    try {
+      const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(q)}&limit=1&apiKey=${API_KEY}`;
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error("请求失败");
+      const data = await resp.json();
+
+      if (!data.features || data.features.length === 0) {
+        alert("没有找到这个地点");
+        return;
+      }
+
+      const loc = data.features[0];
+      const { lat, lon } = loc.properties;
+
+      lastSearchLocation = { lat, lon };
+      map.flyTo([lat, lon], 15, { duration: 1.2 });
+
+      if (nameInput && !nameInput.value.trim()) {
+        nameInput.value = loc.properties.name || loc.properties.formatted || q;
+      }
+
+    } catch (err) {
+      console.error(err);
+      alert("搜索失败，请稍后再试");
+    }
+  }
+
+  searchBtn.addEventListener("click", doSearch);
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      doSearch();
+    }
+  });
+
+  addConfirmBtn.addEventListener("click", () => {
+    if (!editorUnlocked) {
+      alert("请先点击右上角 ⋯ 进入编辑模式");
+      return;
+    }
+
+    const q = searchInput.value.trim();
+    const newName = nameInput.value.trim() || q;
+    if (!newName) {
+      alert("请先填写名称");
+      return;
+    }
+    const newDesc = descInput.value.trim();
+    const newCat  = categoryInput.value || "hotel";
+
+    // --- 编辑已有点评 ---
+    if (currentEditingIndex !== null && currentEditingIndex >= 0 && currentEditingIndex < markers.length) {
+      const m = markers[currentEditingIndex];
+      m.name = newName;
+      m.desc = newDesc;
+      m.category = newCat;
+
+      if (lastSearchLocation) {
+        m.lat = lastSearchLocation.lat;
+        m.lng = lastSearchLocation.lon;
+      }
+
+      localStorage.setItem("markers", JSON.stringify(markers));
+      renderReviews(currentFilter);
+      renderMap();
+
+      // 如果当前还在详情页，刷新一下详情
+      if (reviewDetailEl.style.display !== "none") {
+        showDetailView(m);
+      }
+      return;
+    }
+
+    // --- 新建点评 ---
+    if (!lastSearchLocation) {
+      alert("请先在上方搜索一个地点");
+      return;
+    }
+
+    const newMarker = {
+      name: newName,
+      desc: newDesc,
+      category: newCat,
+      lat: lastSearchLocation.lat,
+      lng: lastSearchLocation.lon
+    };
+
+    markers.push(newMarker);
+    localStorage.setItem("markers", JSON.stringify(markers));
+    currentEditingIndex = markers.length - 1;
+    showListView();
+    renderReviews(currentFilter);
+    renderMap();
+  });
+
+  /* ======================
+     底部编辑区 + 密码
+  ====================== */
+
+  const PASSWORD = "beta";
+
+  function toggleEditor() {
+    editorShell.classList.toggle("editor-open");
+  }
+
+  editToggle.addEventListener("click", () => {
+    if (!editorUnlocked) {
+      const pw = prompt("请输入密码");
+      if (pw !== PASSWORD) {
+        alert("密码错误");
+        return;
+      }
+      editorUnlocked = true;
+      renderReviews(currentFilter); // 刷新，显示删除按钮
+    }
+    toggleEditor();
+  });
+
+  editorClose.addEventListener("click", () => {
+    editorShell.classList.remove("editor-open");
+  });
+
+});
+</script>
+
+</body>
+</html>
+
+
