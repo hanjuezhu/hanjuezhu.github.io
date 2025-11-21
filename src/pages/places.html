@@ -5,15 +5,24 @@
 <title>我的地图点评 | Kyoto Style</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Leaflet -->
+<!-- 预连接，提高外链加载速度 -->
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="preconnect" href="https://maps.geoapify.com">
+
+<!-- Leaflet（defer，不阻塞 HTML 解析） -->
 <link
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 
 <style>
   /* ========= 整体：京都旅馆氛围 ========= */
+
+  :root {
+    /* 控制背景淡入 */
+    --bg-opacity: 0;
+  }
 
   body {
     margin: 0;
@@ -22,14 +31,16 @@
     background: #f7f5f2;
   }
 
+  /* 背景图改成延迟淡入：首屏先是纯色，load 后再加图 */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     background: url("/bg.jpg") center/cover no-repeat;
-    opacity: 0.24;
+    opacity: var(--bg-opacity);
     filter: brightness(0.92) contrast(1.06);
     z-index: -1;
+    transition: opacity .5s ease;
   }
 
   .layout {
@@ -152,7 +163,7 @@
     text-transform: uppercase;
   }
 
-  /* 列表里的描述：只显示一行，超出部分省略号 */
+  /* 列表里的描述：一行 + 省略号 */
   .desc {
     font-size: 14px;
     color: #444;
@@ -178,7 +189,7 @@
     background: #f9ece3;
   }
 
-  /* 详情卡片 & 返回按钮 */
+  /* 详情卡片 */
 
   .detail-card {
     position: relative;
@@ -220,7 +231,7 @@
     font-size: 14px;
     color: #444;
     white-space: pre-line;
-    word-break: break-word; /* 关键：长串文字也会换行 */
+    word-break: break-word;
   }
 
   .detail-desc-edit {
@@ -239,21 +250,6 @@
     word-break: break-word;
   }
 
-
-  .detail-delete-btn {
-    margin-top: 14px;
-    padding: 5px 12px;
-    border-radius: 999px;
-    border: 1px solid #e0d0c0;
-    background: #fff7f5;
-    font-size: 12px;
-    color: #b45b4c;
-    cursor: pointer;
-  }
-  .detail-delete-btn:hover {
-    background: #fce9e3;
-  }
-
   /* ========= 右侧地图卡片 ========= */
 
   .map-card {
@@ -266,7 +262,6 @@
     overflow: hidden;
   }
 
-  /* 搜索条 */
   #search-bar {
     display: flex;
     gap: 8px;
@@ -285,25 +280,8 @@
     font-family: inherit;
   }
 
-  #searchBtn {
-    padding: 9px 16px;
-    border-radius: 999px;
-    border: none;
-    background: #7b654b;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-  }
-
-  #searchBtn:hover {
-    background: #6a5842;
-  }
-
-  /* 通用主按钮 */
+  #searchBtn,
   .primary-btn {
-    margin-top: 12px;
     padding: 9px 16px;
     border-radius: 999px;
     border: none;
@@ -314,6 +292,7 @@
     cursor: pointer;
     box-shadow: 0 4px 16px rgba(0,0,0,0.18);
   }
+  #searchBtn:hover,
   .primary-btn:hover {
     background: #6a5842;
   }
@@ -326,14 +305,13 @@
     overflow: hidden;
   }
 
-  /* ========= 底部编辑区域（默认收起） ========= */
+  /* ========= 底部编辑区域 ========= */
 
   #editor-shell {
     max-width: 1300px;
     margin: 0 auto 40px;
     padding: 0 40px;
     box-sizing: border-box;
-
     transition: max-height .35s ease, opacity .28s ease, transform .35s ease;
     max-height: 0;
     opacity: 0;
@@ -403,6 +381,11 @@
     padding-top: 4px;
   }
 
+  #addConfirmBtn {
+  margin-top: 18px;
+  display: block;
+  } 
+
   label {
     display: block;
     margin-top: 10px;
@@ -422,20 +405,15 @@
     box-sizing: border-box;
   }
   textarea { resize: vertical; }
-
 </style>
 </head>
 
 <body>
 
-<!-- 全局右上角 ⋯ 按钮 -->
-<div id="edit-toggle">⋯</div>
+<div id="edit-toggle" title="进入编辑模式">⋯</div>
 
 <div class="layout">
-
-  <!-- 左侧：点评列表 + 详情 -->
   <div class="left-panel">
-    <h1>我的点评</h1>
 
     <div class="filter-bar">
       <button class="filter-btn active" data-filter="all">全部</button>
@@ -447,7 +425,6 @@
     <div id="review-detail" style="display:none"></div>
   </div>
 
-  <!-- 右侧：地图 + 搜索 -->
   <div class="map-card">
     <div id="search-bar">
       <input id="searchInput" placeholder="搜索地点…" />
@@ -455,10 +432,8 @@
     </div>
     <div id="map"></div>
   </div>
-
 </div>
 
-<!-- 底部：编辑区域（默认收起） -->
 <section id="editor-shell">
   <div class="editor-card">
     <div class="editor-header-row">
@@ -487,40 +462,36 @@
         确认添加 / 保存当前地点
       </button>
     </div>
-
   </div>
 </section>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", () => {
+  /* 背景图淡入：真正加载完再显示，主观感觉更快 */
+  document.documentElement.style.setProperty("--bg-opacity", "0.24");
+});
 
-  /* ======================
-     数据 & 常量
-  ====================== */
+document.addEventListener("DOMContentLoaded", function () {
 
   let markers = JSON.parse(localStorage.getItem("markers") || "[]");
   let editorUnlocked = false;
   let currentFilter = "all";
   let lastSearchLocation = null;
-  let currentEditingIndex = null;  // null = 正在新建；数字 = 在编辑某条点评
+  let currentEditingIndex = null;
 
   const reviewsListEl  = document.getElementById("reviews");
   const reviewDetailEl = document.getElementById("review-detail");
 
-  const searchInput  = document.getElementById("searchInput");
-  const searchBtn    = document.getElementById("searchBtn");
-  const nameInput    = document.getElementById("nameInput");
-  const descInput    = document.getElementById("descInput");
-  const categoryInput= document.getElementById("categoryInput");
-  const addConfirmBtn= document.getElementById("addConfirmBtn");
+  const searchInput    = document.getElementById("searchInput");
+  const searchBtn      = document.getElementById("searchBtn");
+  const nameInput      = document.getElementById("nameInput");
+  const descInput      = document.getElementById("descInput");
+  const categoryInput  = document.getElementById("categoryInput");
+  const addConfirmBtn  = document.getElementById("addConfirmBtn");
 
-  const editToggle   = document.getElementById("edit-toggle");
-  const editorShell  = document.getElementById("editor-shell");
-  const editorClose  = document.getElementById("editor-close");
-
-  /* ======================
-     公共：视图切换 & 删除
-  ====================== */
+  const editToggle     = document.getElementById("edit-toggle");
+  const editorShell    = document.getElementById("editor-shell");
+  const editorClose    = document.getElementById("editor-close");
 
   function showListView() {
     reviewDetailEl.style.display = "none";
@@ -537,11 +508,7 @@ document.addEventListener("DOMContentLoaded", function () {
     renderMap();
   }
 
-  /* ======================
-     左侧：详情视图
-  ====================== */
-
-    function showDetailView(m) {
+  function showDetailView(m) {
     const idx = markers.indexOf(m);
 
     reviewsListEl.style.display = "none";
@@ -567,14 +534,12 @@ document.addEventListener("DOMContentLoaded", function () {
     catDiv.textContent = m.category === "hotel" ? "酒店" : "餐厅";
     card.appendChild(catDiv);
 
-    // —— 描述部分：编辑模式下用 textarea，否则用普通 div ——
     if (editorUnlocked && idx !== -1) {
       const ta = document.createElement("textarea");
       ta.className = "detail-desc-edit";
       ta.value = m.desc || "";
       card.appendChild(ta);
 
-      // 同步到底部 PRIVATE NOTES 的“描述”输入框
       currentEditingIndex = idx;
       nameInput.value = m.name || "";
       descInput.value = m.desc || "";
@@ -584,7 +549,6 @@ document.addEventListener("DOMContentLoaded", function () {
         : null;
       editorShell.classList.add("editor-open");
 
-      // 在详情里改文字，会实时同步到底部表单
       ta.addEventListener("input", () => {
         descInput.value = ta.value;
       });
@@ -598,16 +562,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     reviewDetailEl.appendChild(card);
 
-    // 地图跳转到该店
     if (!isNaN(m.lat) && !isNaN(m.lng)) {
       map.flyTo([m.lat, m.lng], 15, { duration: 1.2 });
     }
   }
-
-
-  /* ======================
-     左侧：列表渲染
-  ====================== */
 
   function renderReviews(filter = "all") {
     const cont = reviewsListEl;
@@ -640,7 +598,6 @@ document.addEventListener("DOMContentLoaded", function () {
       info.appendChild(descDiv);
       card.appendChild(info);
 
-      // 点击进入详情视图
       card.addEventListener("click", () => {
         const idx = markers.indexOf(m);
         currentEditingIndex = editorUnlocked ? idx : null;
@@ -668,7 +625,6 @@ document.addEventListener("DOMContentLoaded", function () {
   renderReviews(currentFilter);
   showListView();
 
-  // 分类筛选
   document.querySelectorAll(".filter-btn").forEach(btn => {
     btn.onclick = () => {
       document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -679,21 +635,17 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   });
 
-  /* ======================
-     地图初始化
-  ====================== */
+  /* 地图初始化（去掉 @2x，减小瓦片大小） */
 
   const API_KEY = "8969679449d44b44a6a1ec357d242287";
 
-  const map = L.map("map").setView([35.0116, 135.7681], 13); // 京都
+  const map = L.map("map", { preferCanvas: true }).setView([35.0116, 135.7681], 13);
 
-  const tileBase =
+  const tileUrl =
     `https://maps.geoapify.com/v1/tile/osm-bright-smooth/{z}/{x}/{y}.png?apiKey=${API_KEY}`;
-  const tileRetina =
-    `https://maps.geoapify.com/v1/tile/osm-bright-smooth/{z}/{x}/{y}@2x.png?apiKey=${API_KEY}`;
 
-  L.tileLayer(L.Browser.retina ? tileRetina : tileBase, {
-    maxZoom: 20,
+  L.tileLayer(tileUrl, {
+    maxZoom: 19,
     attribution: "© OpenStreetMap contributors, © Geoapify"
   }).addTo(map);
 
@@ -716,9 +668,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   renderMap();
 
-  /* ======================
-     搜索 & 手动确认添加 / 保存
-  ====================== */
+  reviewsListEl.addEventListener("mouseover", (e) => {
+    const card = e.target.closest(".review-card");
+    if (!card) return;
+
+    const lat = parseFloat(card.dataset.lat);
+    const lng = parseFloat(card.dataset.lng);
+    if (!isNaN(lat) && !isNaN(lng)) {
+      map.flyTo([lat, lng], 15, { duration: 0.8 });
+    }
+  });
+
+  /* 搜索 & 确认添加 / 保存 */
 
   async function doSearch() {
     const q = searchInput.value.trim();
@@ -744,7 +705,7 @@ document.addEventListener("DOMContentLoaded", function () {
       lastSearchLocation = { lat, lon };
       map.flyTo([lat, lon], 15, { duration: 1.2 });
 
-      if (nameInput && !nameInput.value.trim()) {
+      if (!nameInput.value.trim()) {
         nameInput.value = loc.properties.name || loc.properties.formatted || q;
       }
 
@@ -767,17 +728,19 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const q = searchInput.value.trim();
-    const newName = nameInput.value.trim() || q;
+    const q        = searchInput.value.trim();
+    const newName  = nameInput.value.trim() || q;
     if (!newName) {
       alert("请先填写名称");
       return;
     }
-    const newDesc = descInput.value.trim();
-    const newCat  = categoryInput.value || "hotel";
+    const newDesc  = descInput.value.trim();
+    const newCat   = categoryInput.value || "hotel";
 
-    // --- 编辑已有点评 ---
-    if (currentEditingIndex !== null && currentEditingIndex >= 0 && currentEditingIndex < markers.length) {
+    if (currentEditingIndex !== null &&
+        currentEditingIndex >= 0 &&
+        currentEditingIndex < markers.length) {
+
       const m = markers[currentEditingIndex];
       m.name = newName;
       m.desc = newDesc;
@@ -792,14 +755,12 @@ document.addEventListener("DOMContentLoaded", function () {
       renderReviews(currentFilter);
       renderMap();
 
-      // 如果当前还在详情页，刷新一下详情
       if (reviewDetailEl.style.display !== "none") {
         showDetailView(m);
       }
       return;
     }
 
-    // --- 新建点评 ---
     if (!lastSearchLocation) {
       alert("请先在上方搜索一个地点");
       return;
@@ -821,14 +782,30 @@ document.addEventListener("DOMContentLoaded", function () {
     renderMap();
   });
 
-  /* ======================
-     底部编辑区 + 密码
-  ====================== */
+  /* 编辑模式：进入 / 退出 */
 
   const PASSWORD = "beta";
 
-  function toggleEditor() {
-    editorShell.classList.toggle("editor-open");
+  function enterEditMode() {
+    editorUnlocked = true;
+    editToggle.title = "退出编辑模式";
+    editToggle.textContent = "✓";
+    editorShell.classList.add("editor-open");
+    renderReviews(currentFilter);
+  }
+
+  function exitEditMode() {
+    editorUnlocked = false;
+    editToggle.title = "进入编辑模式";
+    editToggle.textContent = "⋯";
+    editorShell.classList.remove("editor-open");
+    currentEditingIndex = null;
+    lastSearchLocation  = null;
+    nameInput.value     = "";
+    descInput.value     = "";
+    categoryInput.value = "hotel";
+    showListView();
+    renderReviews(currentFilter);
   }
 
   editToggle.addEventListener("click", () => {
@@ -838,10 +815,10 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("密码错误");
         return;
       }
-      editorUnlocked = true;
-      renderReviews(currentFilter); // 刷新，显示删除按钮
+      enterEditMode();
+    } else {
+      exitEditMode();
     }
-    toggleEditor();
   });
 
   editorClose.addEventListener("click", () => {
@@ -850,8 +827,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-
 </body>
 </html>
+
 
 
