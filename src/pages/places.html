@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8" />
-<title>我的地图点评 | Kyoto Style</title>
+<title>Oh the places you'll go</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- 预连接，提高外链加载速度 -->
@@ -17,8 +17,6 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 
 <style>
-  /* ========= 整体：京都旅馆氛围 ========= */
-
   :root {
     /* 控制背景淡入 */
     --bg-opacity: 0;
@@ -31,7 +29,6 @@
     background: #f7f5f2;
   }
 
-  /* 背景图改成延迟淡入：首屏先是纯色，load 后再加图 */
   body::before {
     content: "";
     position: fixed;
