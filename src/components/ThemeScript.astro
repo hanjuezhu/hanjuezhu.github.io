@@ -1,0 +1,68 @@
+---
+
+---
+
+<!-- 1️⃣ Apply theme BEFORE page renders -->
+<script is:inline>
+  (function () {
+    // Default theme from Astro config (hardcode or retrieve global theme if needed)
+    const defaultTheme = document.documentElement.getAttribute('data-theme-default') || 'system';
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    const finalTheme =
+      saved ||
+      (defaultTheme === 'system'
+        ? (systemDark ? 'dark' : 'light')
+        : defaultTheme);
+
+    document.documentElement.classList.toggle('dark', finalTheme === 'dark');
+  })();
+</script>
+
+<!-- 2️⃣ Handle theme toggle -->
+<script>
+  function disableTransitionsTemporarily() {
+    document.documentElement.classList.add('theme-transition');
+    requestAnimationFrame(() => {
+      document.documentElement.classList.remove('theme-transition');
+    });
+  }
+
+  function applyTheme(mode: string) {
+    disableTransitionsTemporarily();
+    document.documentElement.classList.toggle('dark', mode === 'dark');
+    localStorage.setItem('theme', mode);
+  }
+
+  function bindToggle() {
+    const btn = document.getElementById('theme-toggle') as HTMLElement | null;
+    if (!btn || btn.dataset.bound) return;
+
+    btn.dataset.bound = 'true';
+    btn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      applyTheme(isDark ? 'light' : 'dark');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', bindToggle);
+  document.addEventListener('astro:after-swap', bindToggle);
+  document.addEventListener('swup:contentReplaced', bindToggle);
+</script>
+
+<style>
+  /* Prevent color transitions only (preserve layout & background) */
+  html.theme-transition * {
+    transition-property: color, background-color, border-color, text-shadow !important;
+    transition-duration: 0ms !important;
+    animation: none !important;
+  }
+
+  html.theme-transition {
+    transition-property: color, background-color !important;
+    transition-duration: 0ms !important;
+    animation: none !important;
+  }
+</style>
+
