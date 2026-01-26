@@ -1,71 +1,65 @@
----
-
----
-
 <div id="lit-clock" class="mt-8 text-center lg:text-left max-w-prose mx-auto lg:mx-0"></div>
 
 <script is:inline>
   async function loadQuotes() {
-    try {
-      const res = await fetch('/litclock.json');
-      if (!res.ok) throw new Error('JSON not found');
+    const el = document.getElementById('lit-clock');
+    if (!el) return;
 
-      const data = await res.json();
+    try {
+      // IMPORTANT: file must live in /public
+      const res = await fetch('/litclock.json', { cache: "no-store" });
+      if (!res.ok) throw new Error(`JSON not found: ${res.status}`);
+
+      const data = await res.json(); // object: { "13:45": [ {...}, {...} ], ... }
 
       const now = new Date();
-      const h = now.getHours();
-      const m = now.getMinutes();
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+      const key = `${hh}:${mm}`;
 
-      // 找出所有匹配当前时间的 quotes
-      const matches = data.filter((q) => q.h === h && q.m === m);
-
-      const el = document.getElementById('lit-clock');
-      if (!el) return;
+      const matches = data[key] || [];
 
       if (matches.length === 0) {
         el.textContent = "Time flows, but no words were written for this moment.";
         return;
       }
 
-      // 随机选择一条
       const match = matches[Math.floor(Math.random() * matches.length)];
 
-      const timeText = match.quote_time || "";
-      const formattedQuote = timeText
-        ? match.quote.replace(
-            timeText,
-            `<strong class='font-semibold text-gray-700 dark:text-gray-100'>${timeText}</strong>`
-          )
-        : match.quote;
+      // Your JSON entries are split into three parts already
+      const formattedQuote =
+        (match.quote_first || "") +
+        `<strong class="font-semibold text-gray-700 dark:text-gray-100">${match.quote_time_case || ""}</strong>` +
+        (match.quote_last || "");
 
       el.innerHTML = `
         <p class="italic text-sm leading-relaxed text-gray-500 dark:text-gray-300">
           "${formattedQuote}"
         </p>
         <p class="mt-2">
-          <span class="block text-xs font-medium text-gray-400 dark:text-gray-400">— ${match.author}</span>
-          <span class="block text-xs italic text-gray-400 dark:text-gray-400">${match.title}</span>
+          <span class="block text-xs font-medium text-gray-400 dark:text-gray-400">— ${match.author || ""}</span>
+          <span class="block text-xs italic text-gray-400 dark:text-gray-400">${match.title || ""}</span>
         </p>
       `;
     } catch (err) {
       console.error(err);
-      const el = document.getElementById('lit-clock');
-      if (el) el.textContent = "Unable to load literature clock.";
+      el.textContent = "Unable to load literature clock.";
     }
   }
 
   function startQuoteClock() {
-    loadQuotes(); // run immediately
+    loadQuotes();
 
     const now = new Date();
-    const msUntilNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+    const msUntilNextMinute =
+      (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
 
-    // Sync with next exact minute
     setTimeout(() => {
-      loadQuotes(); // update at the start of next minute
-      setInterval(loadQuotes, 60000); // then every 60s
+      loadQuotes();
+      setInterval(loadQuotes, 60000);
     }, msUntilNextMinute);
   }
 
   startQuoteClock();
 </script>
+
