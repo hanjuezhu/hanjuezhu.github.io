@@ -1,7 +1,7 @@
 ---
 title: "Curriculum Vitae"
 ---
-<div style="margin-bottom: -30px;">Updated 2025/07/07</div>
+<div style="margin-bottom: -30px;">Updated 2026/02/24</div>
 
 ## Education
 
@@ -39,34 +39,27 @@ title: "Curriculum Vitae"
 
 ## Honors & Awards
 
-**Jane Street Graduate Research Fellowship Finalist**  
-Awarded to exceptional doctoral students in computer science, mathematics, physics, or statistics.<br>
-*2025*
+**Jane Street Graduate Research Fellowship Finalist**, 2025  
+*Awarded to exceptional doctoral students in computer science, mathematics, physics, or statistics.<br>*
 
-**Fermilab URA Visiting Scholars Program Award**<br>
-*2024*
+**Fermilab URA Visiting Scholars Program Award**, 2024<br>
 
-**Dr. Pliny A. and Margaret H. Price Prize**, Ohio State University, CCAPP  
-Recognizes research excellence and exceptional promise in Center for Cosmology and AstroParticle Physics (CCAPP)-related fields.<br>
-*2024*
+**Dr. Pliny A. and Margaret H. Price Prize**, Ohio State University CCAPP, 2024  
+*Recognizes research excellence and exceptional promise in Center for Cosmology and AstroParticle Physics (CCAPP)-related fields.<br>*
 
-**KITP Graduate Fellowship**, Kavli Institute for Theoretical Physics  
-Awarded to outstanding graduate students in theoretical physics to support extended visits to KITP.  
-*2024*
+**KITP Graduate Fellowship**, Kavli Institute for Theoretical Physics, 2024 
+*Awarded to outstanding graduate students in theoretical physics to support extended visits to KITP.*
 
-**Jeff Metcalf Fellowship**, University of Chicago  
-*2019*
+**Jeff Metcalf Fellowship**, University of Chicago, 2019
 
-**Blue Waters Student Internship Program**, NCSA  
-Among 19 students selected nationwide. Included a stipend, a two-week Petascale Institute, and access to Blue Waters system.  
-*2018*
+**Blue Waters Student Internship Program**, NCSA, 2018  
+*Among 19 students selected nationwide. Included a stipend, a two-week Petascale Institute, and access to Blue Waters system.*
 
-**Heising-Simons Award**, UChicago Department of Physics   
-*2018*
+**Heising-Simons Award**, UChicago Department of Physics, 2018   
 
-**Dean's Scholarship**, **University Scholarship**, University of Chicago  
-Merit-based scholarship for exemplary incoming undergraduate students.  
-*2016*
+**Dean's Scholarship**, **University Scholarship**, University of Chicago, 2016  
+*Merit-based scholarship for exemplary incoming undergraduate students.*
+
 
 ## Presentations
 
