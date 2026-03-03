@@ -105,8 +105,8 @@ When I’m not doing science, I’m usually building things, playing chess or Go
 </div>
 
 <div class="research-content">
-  I work with undergraduates both at <strong>UChicago</strong> and <strong>UW–Madison</strong>. 
-  I have projects that involve running simulations, developing machine learning models, and building reduced analytical models that capture the essential physics of complex astrophysical systems. 
+  I have worked with high school students and undergraduates at multiple institutions, mentoring projects that led to several student first-authored publications. I am currently working with undergraduate students at UChicago on projects that involve running simulations, developing machine learning models, and building reduced analytical models that capture the essential physics of complex astrophysical systems.
+  <br><br>
   For simulation work, being able to code in C++ or Fortran is required, but strong motivation and the ability to learn these languages along the way are perfectly fine. 
   For machine learning or analytical projects, a solid background in applied mathematics and physics is important; you’ll likely enjoy these projects if you like deriving equations and understanding algorithms. 
   Overall, my mentorship style and research are a good fit for mathematically inclined students who want to understand both the tools and the physics.
