@@ -1,8 +1,8 @@
 ---
 import { themeConfig } from '~/.config'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
-import type { Post } from '~/types'
-import { formatDate, getCategories, getPathFromCategory } from '~/utils'
+import LayoutPost from '~/layouts/LayoutPost.astro'
+import { getCategories, getPathFromCategory, getPostDescription } from '~/utils'
 
 export async function getStaticPaths() {
   const categoryMap = await getCategories()
@@ -16,31 +16,17 @@ export async function getStaticPaths() {
 }
 
 const { posts, name } = Astro.props
-
-function getListItems(posts: Post[]) {
-  const result = posts.map((post) => ({
-    title: post.data.title,
-    href: `/posts/${post.id}/`,
-    date: formatDate(post.data.pubDate),
-  }))
-  return result
-}
 ---
 
 <LayoutDefault>
-  <section>
+  <section class="max-w-prose" contain-layout flex="~ col gap-6">
     <h2 class="post-title"># {name}</h2>
-    <ul class="pl-6 py-3" flex="~ col gap-4">
-      {
-        getListItems(posts).map(({ title, href, date }) => (
-          <li>
-            <h3 class="post-title">
-              <a href={href}>{title}</a>
-            </h3>
-            <time>{date}</time>
-          </li>
-        ))
-      }
-    </ul>
+    {
+      posts.map((post) => (
+        <LayoutPost post={post}>
+          <p class="line-clamp-4">{getPostDescription(post)}</p>
+        </LayoutPost>
+      ))
+    }
   </section>
 </LayoutDefault>

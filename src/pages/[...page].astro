@@ -21,26 +21,147 @@ export const getStaticPaths = (async ({ paginate }) => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { page } = Astro.props
+
+const researchModules = [
+  {
+    title: 'Reionization & Cosmology',
+    subtitle: 'Large-scale structure, 21 cm, and the CMB',
+    description: 'How does the growth of ionized structure during reionization shape the universe on cosmological scales?',
+    href: '/categories/Reionization/',
+  },
+  {
+    title: 'Reionization & Galaxy Formation',
+    subtitle: 'Ionizing photon production, radiative transfer, and metal enrichment',
+    description: 'How do the first galaxies drive reionization, and how does reionization in turn reshape galaxy formation?',
+    href: '/categories/Reionization/',
+  },
+  {
+    title: 'Cosmic Rays & Astrophysical Plasmas',
+    subtitle: 'Cosmic-ray transport, turbulence, and instabilities',
+    description: 'How do cosmic rays and plasma microphysics shape gas, galaxies, and cosmic structure?',
+    href: '/categories/Cosmic%20Ray',
+  },
+  {
+    title: 'Computational Methods',
+    subtitle: 'Enabling next-gen computational astrophysics',
+    description: 'How can we build new computational tools to model, simulate, and discover the universe?',
+    href: '/categories/Other',
+  },
+  {
+    title: 'Elsewhere in the Universe',
+    subtitle: 'My research playground that reaches beyond',
+    description: '',
+    href: '/categories/Other',
+  },
+]
 ---
 
 <LayoutDefault>
-  <section contain-layout flex="~ col gap-7.5">
-    {
-      page.data.map((post) => (
-        <LayoutPost post={post}>
-          <p class="line-clamp-4">{getPostDescription(post)}</p>
-        </LayoutPost>
-      ))
+  {
+    page.currentPage === 1 && (
+      <section class="research-modules max-w-prose" aria-label="Research themes">
+        <ul class="research-module-list">
+          {
+            researchModules.map(({ title, subtitle, description, href }) => (
+              <li>
+                <a class="research-module not-underline-hover" href={href}>
+                  <h2>{title}</h2>
+                  <p class="research-module-subtitle">{subtitle}</p>
+                  <p class="research-module-description">{description}</p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    )
+  }
+  {
+    page.currentPage !== 1 && (
+      <>
+        <section contain-layout flex="~ col gap-7.5">
+          {
+            page.data.map((post) => (
+              <LayoutPost post={post}>
+                <p class="line-clamp-4">{getPostDescription(post)}</p>
+              </LayoutPost>
+            ))
+          }
+        </section>
+        <Pagination
+          showLeft={Boolean(page.url.prev)}
+          leftTitle={t('prev')}
+          leftUrl={page.url.prev}
+          showRight={Boolean(page.url.next)}
+          rightTitle={t('next')}
+          rightUrl={page.url.next}
+          currentPage={page.currentPage}
+          totalPage={page.lastPage}
+        />
+      </>
+    )
+  }
+
+  <style>
+    .research-modules {
+      margin-bottom: 2.5rem;
     }
-  </section>
-  <Pagination
-    showLeft={Boolean(page.url.prev)}
-    leftTitle={t('prev')}
-    leftUrl={page.url.prev}
-    showRight={Boolean(page.url.next)}
-    rightTitle={t('next')}
-    rightUrl={page.url.next}
-    currentPage={page.currentPage}
-    totalPage={page.lastPage}
-  />
+
+    .research-module-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .research-module {
+      display: block;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid color-mix(in srgb, var(--uno-colors-primary) 45%, transparent);
+      text-decoration: none;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .research-module:hover,
+    .research-module:focus-visible {
+      background-color: var(--uno-colors-shadow);
+      border-color: var(--uno-colors-primary);
+      outline: none;
+    }
+
+    .research-module h2,
+    .research-module p {
+      margin: 0;
+    }
+
+    .research-module h2 {
+      font-size: 1.15rem;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    .research-module-subtitle {
+      padding-top: 0.4rem;
+      font-size: 0.84rem;
+      line-height: 1.4;
+      opacity: 0.68;
+    }
+
+    .research-module-description {
+      padding-top: 0.2rem;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      opacity: 0.88;
+    }
+
+    @media (max-width: 640px) {
+      .research-module {
+        padding: 1rem 1rem;
+      }
+    }
+  </style>
 </LayoutDefault>
