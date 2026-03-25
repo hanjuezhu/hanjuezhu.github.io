@@ -6,7 +6,7 @@ export const userConfig: Partial<UserConfig> = {
     subtitle: 'part-time theoretical astrophysicist',
     author: 'Hanjue Zhu',
     description: 'Personal webpage',
-    website: 'https://hanjuezhu.github.io/',
+    website: 'https://github.com/hanjuezhu',
     navLinks: [
       {
         name: 'About',
