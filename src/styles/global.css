@@ -33,3 +33,144 @@ html.theme-transition {
   background-image: inherit !important; /* explicitly preserve background */
 }
 
+.cv-page {
+  max-width: 52rem;
+  padding-bottom: 3rem;
+}
+
+.cv-page .cv-updated {
+  margin: 0 0 1.5rem;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  opacity: 0.72;
+  text-transform: uppercase;
+}
+
+.cv-page .cv-section {
+  margin-top: 2.5rem;
+}
+
+.cv-page .cv-section h2 {
+  margin-bottom: 1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid currentColor;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cv-page .cv-subsection {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+.cv-page .cv-item {
+  margin: 1.15rem 0 1.5rem;
+}
+
+.cv-page .cv-row,
+.cv-page .cv-list li {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.cv-page .cv-row h3,
+.cv-page .cv-list-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.cv-page .cv-item > .cv-row h3 {
+  font-size: 1.1rem;
+  font-weight: 750;
+}
+
+.cv-page .cv-meta,
+.cv-page .cv-list-meta,
+.cv-page .cv-inline-meta {
+  font-size: 0.94rem;
+  white-space: nowrap;
+  opacity: 0.72;
+}
+
+.cv-page .cv-bullets,
+.cv-page .cv-list {
+  margin: -0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-page .cv-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-left: 0.9rem;
+}
+
+.cv-page .cv-bullets li,
+.cv-page .cv-list li {
+  margin: 0;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgb(127 127 127 / 0.2);
+}
+
+.cv-page .cv-bullets li {
+  padding: 0.18rem 0;
+  border-bottom: 0;
+}
+
+.cv-page .cv-bullets li:last-child,
+.cv-page .cv-list li:last-child {
+  border-bottom: 0;
+}
+
+.cv-page .cv-detail {
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  opacity: 0.82;
+}
+
+.cv-page .cv-list-stacked li {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  border-bottom: 0;
+}
+
+.cv-page .cv-list-stacked .cv-list-meta {
+  white-space: normal;
+}
+
+.cv-page .cv-row + .cv-detail {
+  margin-top: -1.0rem;
+}
+
+.cv-page .cv-callout {
+  margin: 0.5rem 0 0;
+}
+
+.cv-page .cv-publication-link {
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 720px) {
+  .cv-page .cv-row,
+  .cv-page .cv-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .cv-page .cv-meta,
+  .cv-page .cv-list-meta,
+  .cv-page .cv-inline-meta {
+    white-space: normal;
+  }
+}
