@@ -1,10 +1,21 @@
 ---
 title: "Curriculum Vitae"
 ---
-<p class="cv-updated">Updated February 24, 2026</p>
+
+<p class="cv-updated">Updated June 9, 2026</p>
 
 <section class="cv-section">
-  <h2>Education</h2>
+  <h2>Education and Appointments</h2>
+
+  <div class="cv-item">
+    <div class="cv-row">
+      <h3>Institute for Advanced Study</h3>
+      <p class="cv-meta">Princeton, NJ</p>
+    </div>
+    <ul class="cv-bullets">
+      <li><strong>Postdoctoral Member</strong> <span class="cv-inline-meta">2026–Present</span></li>
+    </ul>
+  </div>
 
   <div class="cv-item">
     <div class="cv-row">
@@ -14,7 +25,8 @@ title: "Curriculum Vitae"
     <ul class="cv-bullets">
       <li>
         <strong>Ph.D. Astronomy &amp; Astrophysics</strong>
-        <span class="cv-inline-meta">Expected 2026</span>
+        <span class="cv-inline-meta">2026</span>
+        <div class="cv-degree-detail"><span>Advisor:</span> Nickolay Gnedin</div>
       </li>
       <li><strong>B.A. Physics with Specialization in Astrophysics with Honors</strong> <span class="cv-inline-meta">2020</span></li>
       <li><strong>B.S. Mathematics</strong> <span class="cv-inline-meta">2020</span></li>

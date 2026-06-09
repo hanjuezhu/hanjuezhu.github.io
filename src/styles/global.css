@@ -10,7 +10,8 @@ html {
 
   text-shadow: 1px 1px 1px var(--uno-colors-shadow);
   background-size: 7px 7px;
-  background-image: linear-gradient(to right, var(--uno-colors-shadow) 1px, transparent 1px),
+  background-image:
+    linear-gradient(to right, var(--uno-colors-shadow) 1px, transparent 1px),
     linear-gradient(to bottom, var(--uno-colors-shadow) 1px, transparent 1px);
 }
 
@@ -208,6 +209,16 @@ html.theme-transition {
   opacity: 0.82;
 }
 
+.cv-page .cv-degree-detail {
+  margin-top: 0.05rem;
+  font-size: 0.9rem;
+  opacity: 0.76;
+}
+
+.cv-page .cv-degree-detail span {
+  margin-right: 0.1rem;
+}
+
 .cv-page .cv-list-stacked li {
   flex-direction: column;
   align-items: flex-start;
@@ -220,7 +231,7 @@ html.theme-transition {
 }
 
 .cv-page .cv-row + .cv-detail {
-  margin-top: -1.0rem;
+  margin-top: -1rem;
 }
 
 .cv-page .cv-callout {

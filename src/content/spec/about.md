@@ -2,6 +2,7 @@
 title: About Me
 pubDate: 2024-12-06
 ---
+
 <p style="text-align: center;">
   <img
     src="/profile.jpg"
@@ -12,15 +13,10 @@ pubDate: 2024-12-06
 </p>
 
 **Email**: hanjuezhu@uchicago.edu <br>
-**Job**: PhD candidate in Astronomy & Astrophysics at the University of Chicago <br>
-$\rightarrow$ I will start as a postdoc at the Institute for Advanced Study in Fall 2026<br>
+**Job**: I will start as a postdoc at the Institute for Advanced Study in Fall 2026<br>
 **Hobby**: Theoretical and computational astrophysics <br>
 
-I am interested in the fundamental physical processes that govern structure formation and evolution in the universe, especially before the completion of cosmic reionization. My goal is to develop theoretical models grounded in first principles and represent them accurately and efficiently in numerical simulations. As a computational astrophysicist, I have a strong interest in developing and introducing state-of-the-art numerical tools to advance theoretical astrophysics. 
-
-My PhD thesis, advised by Prof. Nick Gnedin (who likes to remind people he’s also a movie director), focuses on cosmic reionization. I also spend time in Madison, WI, working with Prof. Ellen Zweibel on cosmic rays.
-
-When I’m not doing science, I’m usually building things, playing chess or Go, or keeping up my interest in competitive programming. You can find me somewhere between Chicago and Madison (on a Van Galder bus).
+I am interested in the fundamental physical processes that govern structure formation and evolution in the universe, especially before the completion of cosmic reionization. My goal is to develop theoretical models grounded in first principles and represent them accurately and efficiently in numerical simulations. As a computational astrophysicist, I have a strong interest in developing and introducing state-of-the-art numerical tools to advance theoretical astrophysics.
 
 <style is:global>
 .research-box {
@@ -107,16 +103,14 @@ When I’m not doing science, I’m usually building things, playing chess or Go
 <div class="research-content">
   I have worked with high school students and undergraduates at multiple institutions, mentoring projects that led to several student first-authored publications. I am currently working with undergraduate students at UChicago on projects that involve running simulations, developing machine learning models, and building reduced analytical models that capture the essential physics of complex astrophysical systems.
   <br><br>
-  For simulation work, being able to code in C++ or Fortran is required, but strong motivation and the ability to learn these languages along the way are perfectly fine. 
-  For machine learning or analytical projects, a solid background in applied mathematics and physics is important; you’ll likely enjoy these projects if you like deriving equations and understanding algorithms. 
+  For simulation work, being able to code in C++ or Fortran is required, but strong motivation and the ability to learn these languages along the way are perfectly fine.
+  For machine learning or analytical projects, a solid background in applied mathematics and physics is important; you’ll likely enjoy these projects if you like deriving equations and understanding algorithms.
   Overall, my mentorship style and research are a good fit for mathematically inclined students who want to understand both the tools and the physics.
   <br><br>
-  If you’re interested in collaborating, feel free to reach out to me or to my advisor, mentioning your interest in working with me. 
-  If you’re curious about my reionization work and how to get started, take a look at 
-  <a href="/intro_to_research"><strong>this short guide</strong></a> 
+  If you’re interested in collaborating, feel free to reach out to me.
+  If you’re curious about my reionization work and how to get started, take a look at
+  <a href="/intro_to_research"><strong>this short guide</strong></a>
   I compiled from email responses to prospective undergraduate researchers.
 </div>
 
-
- I especially encourage female students interested in computational and theoretical astrophysics to reach out and chat — coffee’s on me.
-
+I especially encourage female students interested in computational and theoretical astrophysics to reach out and chat — coffee’s on me.
