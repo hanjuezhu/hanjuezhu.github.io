@@ -13,7 +13,7 @@ pubDate: 2024-12-06
 </p>
 
 **Email**: hanjuezhu@uchicago.edu <br>
-**Job**: I will start as a postdoc at the Institute for Advanced Study in Fall 2026<br>
+**Job**: postdoc at the Institute for Advanced Study <br>
 **Hobby**: Theoretical and computational astrophysics <br>
 
 I am interested in the fundamental physical processes that govern structure formation and evolution in the universe, especially before the completion of cosmic reionization. My goal is to develop theoretical models grounded in first principles and represent them accurately and efficiently in numerical simulations. As a computational astrophysicist, I have a strong interest in developing and introducing state-of-the-art numerical tools to advance theoretical astrophysics.
