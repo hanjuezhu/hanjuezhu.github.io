@@ -12,7 +12,7 @@ pubDate: 2024-12-06
   />
 </p>
 
-**Email**: hanjuezhu@uchicago.edu <br>
+**Email**: hanjuezhu@ias.edu <br>
 **Job**: postdoc at the Institute for Advanced Study <br>
 **Hobby**: Theoretical and computational astrophysics <br>
 
